@@ -16,7 +16,11 @@ const INIT_NODE_STATE = {
     ref: null,
 };
 
-export const createFirebaseReducer = () => (state = INIT_NODE_STATE, action) => {
+const INIT_STATE = {
+    messages: { ...INIT_NODE_STATE }
+};
+
+export const createFirebaseReducer = () => (state = INIT_STATE, action) => {
     switch (action.type) {
         case FIREBASE_LISTEN_REQUESTED:
             return applyListenRequested(state, action);
@@ -72,7 +76,7 @@ const applyListenRemoved = (state, action) => {
 
 const applyListenFulfilled = (state, action) => {
     const { node, items } = action.payload;
-   
+
     return {
         ...state,
         [node]: {

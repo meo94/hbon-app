@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-// import { doListenToFirebaseMessages } from '../../redux/shared/firebaseActions';
-import { doListenToMessages } from '../../redux/shared/firestoreActions';
+import { doListenToMessages, doRemoveListenToMessages } from '../../redux/messages';
 
 const INIT_LOCAL_STATE = {};
-
 class ClassroomPage extends React.Component {
     constructor(props) {
         super(props);
@@ -13,8 +11,11 @@ class ClassroomPage extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.onListenToFirebaseMessages();
-        this.props.onListenToMessages();
+       this.props.onListenToMessages();
+    }
+
+    componentWillUnmount() {
+        this.props.onRemoveListenToMessages();
     }
 
     render() {
@@ -27,7 +28,7 @@ class ClassroomPage extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    // onListenToFirebaseMessages: () => dispatch(doListenToFirebaseMessages())
     onListenToMessages: () => dispatch(doListenToMessages()),
+    onRemoveListenToMessages: () => dispatch(doRemoveListenToMessages()),
 });
 export default connect(null, mapDispatchToProps)(ClassroomPage);

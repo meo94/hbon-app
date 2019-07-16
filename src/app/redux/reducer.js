@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux';
+import { nestedCombineReducers } from 'nested-combine-reducers';
 
 import { exampleReducer } from './example/reducers';
 import { authUserReducer } from './session/reducers';
+import { setValueByDotKey } from './shared/utils';
 
-import { createFirebaseReducer } from './shared/firebaseReducers';
+import { MESSAGES_NODE_STATE, messagesDomainReducer } from './messages';
 
-const domainReducer = combineReducers({
-    messages: createFirebaseReducer(),
-    samples: createFirebaseReducer(),
-});
+const registerReducerObject = {};
+setValueByDotKey(registerReducerObject, MESSAGES_NODE_STATE, messagesDomainReducer);
 
-const rootReducer = combineReducers({
+const rootReducer = nestedCombineReducers({
     example: exampleReducer,
     authUser: authUserReducer,
-    domain: domainReducer,
-});
+    ...registerReducerObject,
+}, combineReducers);
 
 export default rootReducer;

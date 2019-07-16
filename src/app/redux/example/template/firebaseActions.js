@@ -4,7 +4,7 @@
 - path : path in FIREBASE REALTIME DATABASE
 */
 
-import firebaseService from '../../services/firebase';
+import firebaseService from '../../../services/firebase';
 import {
     FIREBASE_LISTEN_REQUESTED,
     FIREBASE_LISTEN_REJECTED,
@@ -88,5 +88,5 @@ export const doRemoveListenerToFirebasePath = (path, node) =>
         return Promise.resolve();
     }
 
-export const doListenToFirebaseMessages = () => doListenToFirebasePath('messages', 'messages');
-export const doListenToFirebaseSamples = () => doListenToFirebasePath('samples', 'samples');
+// export const doListenToFirebaseMessages = () => doListenToFirebasePath('messages', 'messages');
+// export const doListenToFirebaseSamples = () => doListenToFirebasePath('samples', 'samples');

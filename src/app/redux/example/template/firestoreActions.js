@@ -1,7 +1,6 @@
 // *** Generic Actions for Firestore *** //
 
-import firebaseService from '../../services/firebase';
-
+import firebaseService from '../../../services/firebase';
 import {
     FIRESTORE_LISTEN_REQUESTED,
     FIRESTORE_LISTEN_REJECTED,
@@ -11,7 +10,6 @@ import {
     FIRESTORE_LISTEN_DOC_CHANGED,
     FIRESTORE_LISTEN_DOC_REMOVED,
 } from './actionTypes';
-import { getValueByDotKey } from './utils';
 
 export const doListenRequestedToFirestore = (node, listener) => ({
     type: FIRESTORE_LISTEN_REQUESTED,
@@ -52,7 +50,7 @@ export const doListenToFirestoreCollection = (collection, node) =>
     (dispatch, getState) => {
         const listener = firebaseService.fs.collection(collection)
             .onSnapshot(snap => {
-                const state = getValueByDotKey(getState(), node);
+                const state = getState().domain[node];
                 if (state && state.allIds && state.allIds.length === 0) {
                     let items = {};
                     snap.forEach(doc => items[doc.id] = { ...doc.data(), id: doc.id });
@@ -62,15 +60,15 @@ export const doListenToFirestoreCollection = (collection, node) =>
 
                 snap.docChanges().forEach(change => {
                     if (change.type === 'added') {
-                        if (getValueByDotKey(getState(), node).inProcess) return;
+                        if (getState().domain[node].inProcess) return;
                         dispatch(doListenDocAddedToFirestore(node, change.doc.id, { ...change.doc.data(), id: change.doc.id }));
                     }
                     else if (change.type === 'modified') {
-                        if (getValueByDotKey(getState(), node).inProcess) return;
+                        if (getState().domain[node].inProcess) return;
                         dispatch(doListenDocAddedToFirestore(node, change.doc.id, { ...change.doc.data(), id: change.doc.id }));
                     }
                     else if (change.type === 'removed') {
-                        if (getValueByDotKey(getState(), node).inProcess) return;
+                        if (getState().domain[node].inProcess) return;
                         dispatch(doListenDocRemovedToFirestore(node, change.doc.id));
                     }
                 });
@@ -82,10 +80,5 @@ export const doListenToFirestoreCollection = (collection, node) =>
 
 export const doRemoveListenerToFirestoreCollection = (path, node) =>
     (dispatch, getState) => {
-        const state = getValueByDotKey(getState(), node);
-        if (!!state.listener) {
-            state.listener();
-            dispatch(doRemoveListenerFirestore(node));
-        }
         return Promise.resolve();
     }
