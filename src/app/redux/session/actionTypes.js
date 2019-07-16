@@ -1,0 +1,1 @@
+export const SESSION_SET_AUTH_USER = 'Session/Set/AuthUser';
