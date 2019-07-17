@@ -51,6 +51,7 @@ export const doRemoveListenerFirestore = node => ({
 export const doListenToFirestoreCollection = (collection, node) =>
     (dispatch, getState) => {
         const listener = firebaseService.fs.collection(collection)
+            .orderBy('createAt', 'desc')
             .onSnapshot(snap => {
                 const state = getValueByDotKey(getState(), node);
                 if (state && state.allIds && state.allIds.length === 0) {
@@ -67,7 +68,7 @@ export const doListenToFirestoreCollection = (collection, node) =>
                     }
                     else if (change.type === 'modified') {
                         if (getValueByDotKey(getState(), node).inProcess) return;
-                        dispatch(doListenDocAddedToFirestore(node, change.doc.id, { ...change.doc.data(), id: change.doc.id }));
+                        dispatch(doListenDocChangedToFirestore(node, change.doc.id, { ...change.doc.data(), id: change.doc.id }));
                     }
                     else if (change.type === 'removed') {
                         if (getValueByDotKey(getState(), node).inProcess) return;

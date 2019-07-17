@@ -19,7 +19,7 @@ class FirebaseService {
         app.initializeApp(config);
         // *** Helpers *** //
         this.fsFieldValue = app.firestore.FieldValue; // Firestore FieldValue
-
+        // this.app = app;
         this.auth = app.auth();
         this.db = app.database();
         this.fs = app.firestore();
@@ -43,12 +43,13 @@ class FirebaseService {
             const task = ref.put(blob);
 
             task.on('state_changed', snapshot => {
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
-                    case firebase.storage.TaskState.PAUSED:
+                    case app.storage.TaskState.PAUSED:
                         console.log('Upload is paused');
                         break;
-                    case firebase.storage.TaskState.RUNNING:
+                    case app.storage.TaskState.RUNNING:
                         console.log('Upload is running');
                         break;
                 }
