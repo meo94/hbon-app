@@ -46,6 +46,7 @@ const createFirestoreDomainReducer = (reducerNode) => {
         return firestoreDomainReducer(state, action);
     }
 }
+
 const applyListenRequested = (state, action) => {
     const { listener } = action.payload;
 
