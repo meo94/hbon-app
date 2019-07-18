@@ -23,6 +23,10 @@ class DomainApp extends React.Component {
     }
 
     render() {
+        const {
+            onAddItem, onModifyItem, onRemoveItem,
+            onAddItems, onModifyItems, onRemoveItems,
+        } = this.props;
         return (
             <div>
                 <input type='text' name='name' value={name} onChange={this.onChange} />
@@ -40,7 +44,7 @@ class DomainApp extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+    cities: state.domain.cities,
 });
 
 const mapDispatchToProps = dispatch => ({
