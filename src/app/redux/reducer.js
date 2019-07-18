@@ -8,9 +8,10 @@ import { setValueByDotKey } from './shared/utils';
 import { MESSAGES_NODE_STATE, messagesDomainReducer } from './messages';
 import {
     activityDomainReducer,
-    activityAttemptDomainReducer, 
-    activityAppReducer 
+    activityAttemptDomainReducer,
+    activityAppReducer
 } from './study/reducers';
+import { createDomainReducer } from './shared/domain';
 
 
 const registerReducerObject = {};
@@ -19,6 +20,10 @@ setValueByDotKey(registerReducerObject, 'domain.activities', activityDomainReduc
 setValueByDotKey(registerReducerObject, 'domain.activityAttempts', activityAttemptDomainReducer);
 
 setValueByDotKey(registerReducerObject, 'app.activity', activityAppReducer);
+// base domain
+setValueByDotKey(registerReducerObject, 'domain.cities', createDomainReducer('domain.cities'));
+// setValueByDotKey(registerReducerObject, 'domain.districts', createDomainReducer('domain.districts'));
+// setValueByDotKey(registerReducerObject, 'domain.wards', createDomainReducer('domain.wards'));
 
 const rootReducer = nestedCombineReducers({
     example: exampleReducer,
