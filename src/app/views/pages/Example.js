@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Counter from '../components/Counter';
+import DomainApp from '../components/DomainApp';
 
 const INIT_LOCAL_STATE = {};
 
@@ -15,6 +16,7 @@ class ExamplePage extends React.Component {
             <div>
                 <h2>ExamplePage</h2>
                 <Counter />
+                <DomainApp />
             </div>
         );
     }

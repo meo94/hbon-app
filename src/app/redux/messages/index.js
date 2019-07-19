@@ -5,7 +5,6 @@ import {
 
 import { createFirestoreDomainReducer } from '../shared/firestoreReducers';
 import firebaseService from '../../services/firebase';
-import { messageRef, messagesRef } from '../../services/chat';
 
 import { getValueByDotKey } from '../shared/utils';
 
@@ -17,11 +16,11 @@ export const doAddMessage = (data) => {
     const { text, user } = data;
     const timestamp = firebaseService.fsFieldValue.serverTimestamp();
 
-    return messagesRef().add({
+    return firebaseService.messagesRef().add({
         text,
         userId: user.id,
         username: user.username,
-
+        
         createAt: timestamp,
         updateAt: timestamp,
         isDelete: false,
@@ -29,7 +28,7 @@ export const doAddMessage = (data) => {
 }
 
 export const doRemoveMessage = id => {
-    return messageRef(id).delete();
+    return firebaseService.messageRef(id).delete();
 }
 
 export const doListenToMessages = () => doListenToFirestoreCollection(MESSAGES_COLLECTION, MESSAGES_NODE_STATE);

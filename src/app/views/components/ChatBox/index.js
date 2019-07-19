@@ -43,6 +43,18 @@ class ChatBox extends React.Component {
 
         return (
             <div>
+                <h2>Chat Box</h2>
+                <h3>Bot</h3>
+                <ul>
+                    <li>
+                        <p>Tham gia Activity nay nhe ? </p>
+                         
+                        <button onClick={() => console.log('a')}>Send</button>
+                    </li>
+
+                </ul>
+
+                <h3>Messages</h3>
                 {messages &&
                     (<MessageList authUser={authUser}
                         messages={messages}

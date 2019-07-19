@@ -58,8 +58,9 @@ const applyAddItem = (state, action) => produce(state, draft => {
 
 const applyAddItems = (state, action) => produce(state, draft => {
     const { items } = action && action.payload;
+
     items.forEach(item => {
-        draft.byId[item.id] = item;
+        draft.byId[item.id] = item.value;
         draft.allIds.push(item.id);
     });
 
@@ -77,10 +78,12 @@ const applyModifyItem = (state, action) => produce(state, draft => {
 
 const applyModifyItems = (state, action) => produce(state, draft => {
     const { items } = action && action.payload;
+    console.log(items);
+    
     items.forEach(item => {
-        draft.byId[item.id] = item;
+        draft.byId[item.id] = item.value;
     });
-
+   
     draft.inProgress = false;
     draft.error = null;
 });

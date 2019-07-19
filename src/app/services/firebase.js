@@ -31,9 +31,77 @@ class FirebaseService {
     }
 
     // *** Users *** //
-    usersRef = () => this.fs.collection('users');
     userRef = id => this.fs.doc(`users/${id}`);
-
+    usersRef = () => this.fs.collection('users');
+    organizationRef = id => this.fs.doc(`organizations/${id}`);
+    organizationsRef = () => this.fs.collection('organizations');
+    ORGANIZATION_TYPES = {
+        School: 'School',
+        Company: 'Company',
+    }
+    // *** Address *** //
+    countryRef = id => this.fs.doc(`countries/${id}`);
+    countriesRef = () => this.fs.collection('countries');
+    cityRef = id => this.fs.doc(`cities/${id}`);
+    citiesRef = () => this.fs.collection('cities');
+    districtRef = id => this.fs.doc(`districts/${id}`);
+    districtsRef = () => this.fs.collection(`districts`);
+    wardRef = id => this.fs.doc(`wards/${id}`);
+    wardsRef = () => this.fs.collection('wards');
+    // *** Devices *** //
+    deviceRef = id => this.fs.doc(`devices/${id}`);
+    devicesRef = () => this.fs.collection('devices');
+    // *** Messages *** //
+    messageRef = id => this.fs.doc(`messages/${id}`);
+    messagesRef = () => this.fs.collection('messages');
+    // *** Assets *** //
+    ASSETS_TYPES = {
+        Image: 'Image',
+        File: 'File',
+        Audio: 'Audio',
+        Video: 'Video',
+        PDF: 'PDF',
+        Docs: 'Docs',
+        Excel: 'Excel',
+        Powerpoint: 'Powerpoint',
+    }
+    assetRef = id => this.fs.doc(`assets/${id}`);
+    assetsRef = () => this.fs.collection('assets');
+    // *** Contents *** //
+    CONTENT_TYPES = {
+        Wiki: 'Wiki',
+        Quizz: 'Quizz',
+        // *** Questions *** //
+        MultiChoiceQuestion: 'MultichoiceQuestion',
+        SingleChoiceQuestion: 'SingleChoiceQuestion',
+        TrueFalseQuestion: 'TrueFalseQuestion',
+        FillInBlankQuestion: 'FillInBlankQuestion',
+        MatchQuestion: 'MatchQuestion',
+        OrderingQuestion: 'OrderingQuestion',
+    }
+    contentRef = id => this.fs.doc(`contents/${id}`);
+    contentsRef = () => this.fs.collection('contents');
+    wikiRef = id => this.fs.doc(`wikis/${id}`);
+    wikisRef = () => this.fs.collection('wikis');
+    quizzRef = id => this.fs.doc(`quizzs/${id}`);
+    quizzsRef = () => this.fs.collection('quizzs');
+    questionRef = id => this.fs.doc(`questions/${id}`);
+    questionsRef = () => this.fs.collection('questions');
+    // *** Activities *** //
+    ACTIVITY_TYPES = {
+        ReadWiki: 'ReadWiki',
+        DoQuizz: 'DoQuizz',
+    }
+    activityRef = id => this.fs.doc(`activities/${id}`);
+    activitiesRef = () => this.fs.collection('activities');
+    activityAttemptRef = id => this.fs.doc(`activityAttempts/${id}`);
+    activityAttemptsRef = () => this.fs.collection('activityAttempts');
+    // *** Categories && Tags *** //
+    categoryRef = id => this.fs.doc(`categories/${id}`);
+    categoriesRef = () => this.fs.collection('categories');
+    tagRef = id => this.fs.doc(`tags/${id}`);
+    tagsRef = () => this.fs.collection('tags');
+    // *** Storage *** //
     uploadImage = async uri => {
         try {
             const response = await fetch(uri);
